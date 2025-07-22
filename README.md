@@ -1,6 +1,6 @@
 # Building Lua with Zig
 
-This project uses Zig to build the Lua 5.1.4 source code.
+This project uses Zig to build the Lua 5.1.4 source code.  Original lua source code from [Lua Binaries](https://sourceforge.net/projects/luabinaries/files/)
 
 ## Prerequisites
 
