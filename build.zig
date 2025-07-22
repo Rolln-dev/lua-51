@@ -48,6 +48,54 @@ pub fn build(b: *std.Build) void {
         },
     });
 
+    b.installArtifact(lib);
+
+    const dll = b.addSharedLibrary(.{
+        .name = "lua",
+        .target = target,
+        .optimize = optimize,
+    });
+
+    dll.addIncludePath(b.path("src"));
+    dll.addIncludePath(b.path("include"));
+    dll.linkLibC();
+
+    dll.addCSourceFiles(.{
+        .files = &.{
+            "src/lapi.c",
+            "src/lauxlib.c",
+            "src/lbaselib.c",
+            "src/lcode.c",
+            "src/ldblib.c",
+            "src/ldebug.c",
+            "src/ldo.c",
+            "src/ldump.c",
+            "src/lfunc.c",
+            "src/lgc.c",
+            "src/linit.c",
+            "src/liolib.c",
+            "src/llex.c",
+            "src/lmathlib.c",
+            "src/lmem.c",
+            "src/loadlib.c",
+            "src/lobject.c",
+            "src/lopcodes.c",
+            "src/loslib.c",
+            "src/lparser.c",
+            "src/lstate.c",
+            "src/lstring.c",
+            "src/lstrlib.c",
+            "src/ltable.c",
+            "src/ltablib.c",
+            "src/ltm.c",
+            "src/lundump.c",
+            "src/lvm.c",
+            "src/lzio.c",
+        },
+    });
+
+    b.installArtifact(dll);
+
     const lua_exe = b.addExecutable(.{
         .name = "lua",
         .target = target,
